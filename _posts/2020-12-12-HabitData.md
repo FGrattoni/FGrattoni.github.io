@@ -493,8 +493,7 @@ ax.grid()
 plt.show()
 ```
 
-
-![png](output_24_0.png)
+![plot1](https://i.imgur.com/dGEuvfO.png)
 
 
 We started our analysis with the most simple and straightforward plot possible, plot the entries of a single habit in a unique plot. We did this as a starting point to find out all the possible ways in which we can improve it, and then tackling one at a time. We map our TODO list: 
@@ -627,6 +626,5 @@ plt.show()
 ```
 
 
-![png](output_29_0.png)
-
+![plot2](https://i.imgur.com/DDjxXKh.png)
 
