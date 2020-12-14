@@ -6,6 +6,8 @@ subtitle: Some analysis on personal data
 
 
 
+
+
 ```python
 import pandas as pd
 import os
@@ -20,7 +22,7 @@ cwd = os.getcwd()
 df = pd.read_csv(os.path.join(cwd, 'HabitBulldata.csv'))
 ```
 
-### Exploration of our dataframe
+## Exploration Data Analysis of our dataframe
 We print all of the columns in the dataframe provided by the app:
 
 
@@ -373,6 +375,22 @@ HabitsData.head()
 
 
 
+The appearance of the CalendarDate column is not changed but in practice it is a different object. We can demonstrate that by finding out is type by means of the `type()` function:
+
+
+```python
+type(HabitsData.iloc[0, 1])
+```
+
+
+
+
+    datetime.date
+
+
+
+Now we change the order of the columns in the dataframe so that they make more sense to us. We do so by creating a new, temporary, dataframe `temp` and assigning first the values for he first column (CalendarDate) and then, in order, the various habits values. Then we copy this dataframe and assign it to the variable that we already used: `HabitData`.
+
 
 ```python
 temp = {}
@@ -460,30 +478,14 @@ HabitsData.head()
 
 
 
-
-```python
-temp = HabitsData.loc[:,"CalendarDate"]
-temp = DataFrame(temp)
-temp.head()
-print(HabitsData.shape)
-HabitsData.head()
-```
-
-The appearance of the CalendarDate column is not changed but in practice it is a different object. We can demonstrate that by finding out is type by means of the `type()` function:
-
-
-```python
-type(HabitsData.iloc[0, 1])
-```
-
-### Data analysis
+## Data visualization for Exploratory Analysis
 
 We start with the most simple rapresentation of our data that we can.
 
 
 ```python
 fig, ax = plt.subplots()
-ax.plot(HabitsData.loc[:,"CalendarDate"], HabitsData.iloc[:,0])
+ax.plot(HabitsData.loc[:,"CalendarDate"], HabitsData.iloc[:,1])
 
 ax.set(xlabel='Date', ylabel='Habit', title='')
 ax.grid()
@@ -491,13 +493,140 @@ ax.grid()
 plt.show()
 ```
 
+
+![png](output_24_0.png)
+
+
 We started our analysis with the most simple and straightforward plot possible, plot the entries of a single habit in a unique plot. We did this as a starting point to find out all the possible ways in which we can improve it, and then tackling one at a time. We map our TODO list: 
 
 - the dates in the x-axis are not clear \[we can make them vertical or oblique\];
-- the data is very difficult to interpret. We need some more meaningful information, like the rolling average;
+- the data is very difficult to interpret. We need some more meaningful information, like the **rolling average**;
+
+### Rolling average
+By creating a rolling average we aim to achieve a smoother plot, representing the sum of the habit's values in the previous week. Thus, each observation represents a moving average for the week (7 days before). 
 
 
 ```python
 # creation of the rolling average
-
+for i in HabitNames:
+    colName = "Rolling" + i
+    HabitsData[colName] = HabitsData.loc[:,i].rolling(window=30).mean()
+HabitsData.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CalendarDate</th>
+      <th>☕</th>
+      <th>📕</th>
+      <th>📖</th>
+      <th>😴</th>
+      <th>Rolling☕</th>
+      <th>Rolling📕</th>
+      <th>Rolling📖</th>
+      <th>Rolling😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-01-01</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-01-02</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-01-03</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-01-04</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-01-05</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+The resulting database view may make you think about an error, but in fact the rolling average is not defined for the first `n` days defined in the `rolling(window = n)` function. 
+
+
+```python
+fig, ax = plt.subplots()
+ax.plot(HabitsData.loc[:,"CalendarDate"], HabitsData.iloc[:,5])
+
+ax.set(xlabel='Date', ylabel='Habit', title='')
+ax.grid()
+
+plt.show()
+```
+
+
+![png](output_29_0.png)
+
+
