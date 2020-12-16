@@ -628,3 +628,40 @@ plt.show()
 
 ![plot2](https://i.imgur.com/DDjxXKh.png)
 
+Now that we have explored, prepared, and modified our database, we may want to gain some more insights on the data. 
+
+We may want to explore the question: 
+> _Is there any correlation between different habits?_
+
+In other words, can the data prove that some habit has a positive, or negative, effect on some other habit? Note that we need to be careful from this point on, not to mistake correlation with causation. In order to be able to prove that, some other considerations may be needed.
+
+<div class="alert alert-block alert-info">
+<b>Tip:</b> Use blue boxes (alert-info) for tips and notes. 
+If it’s a note, you don’t have to include the word “Note”.
+</div>
+
+***
+
+<div class="alert alert-block alert-warning">
+<b>Example:</b> Use yellow boxes for examples that are not 
+inside code cells, or use for mathematical formulas if needed.
+</div>
+
+***
+
+<div class="alert alert-block alert-success">
+<b>Up to you:</b> Use green boxes sparingly, and only for some specific 
+purpose that the other boxes can't cover. For example, if you have a lot 
+of related content to link to, maybe you decide to use green boxes for 
+related links from each section of a notebook.
+</div>
+
+
+***
+
+<div class="alert alert-block alert-danger">
+<b>Just don't:</b> In general, avoid the red boxes. These should only be
+used for actions that might cause data loss or another major issue.
+</div>
+
+efeuib hfeb fe efu fwefefe efwfewfewj 
