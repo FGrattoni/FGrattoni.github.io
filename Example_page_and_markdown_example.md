@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Example page and markdown examples
 subtitle: Each page also has a subtitle
 comments: true
