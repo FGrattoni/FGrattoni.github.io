@@ -94,3 +94,12 @@ purpose that the other boxes can't cover. For example, if you have a lot
 of related content to link to, maybe you decide to use green boxes for 
 related links from each section of a notebook.
 </div>
+
+
+\begin{equation}
+E=mc^2
+\end{equation}
+
+$$
+X=\pm\ (x_1+x_2)
+$$
