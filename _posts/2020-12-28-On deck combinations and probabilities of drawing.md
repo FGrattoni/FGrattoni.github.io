@@ -42,7 +42,7 @@ $$\text{Probability of drawing the king of hearts} = \frac{\text{\# of king of h
 
 Now we may ask ourselves what is the probability of drawing the king of hearts when drawing a hand of 5 cards?
 
-![https://i.imgur.com/YWK4uiY.jpg](King_hearts_in_hand.jpg)
+![King_hearts_in_hand.jpg](https://i.imgur.com/YWK4uiY.jpg)
 
 For each time we draw a card we may expect the same probability of drawing the king of hearts, i.e. 1.9%.
 
