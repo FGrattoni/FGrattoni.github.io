@@ -1,7 +1,11 @@
-# On deck combinations and probabilities of drawing cards
-
-``subtitle:`` Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.
-
+---
+layout: post
+title: On deck combinations and probabilities of drawing cards
+subtitle: Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.
+cover-img: 
+thumbnail-img:
+share-img: 
+tags: [probability]
 ---
 
 Table top games are a wonderland of maths and probability, much more than one may be willing to think about when trying to seek pleasure, maybe even disconnect the mind with a simple game. Card games, in this, are no exception.
