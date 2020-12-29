@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>On deck combinations and probabilities of drawing cards</title>
+
+  
+  <meta name="author" content="FGrattoni">
+  
+
+  <meta name="description" content="Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.">
+
+  
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="FGrattoni's website" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="FGrattoni's website">
+  <meta property="og:title" content="On deck combinations and probabilities of drawing cards">
+  <meta property="og:description" content="Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="FGrattoni">
+  <meta property="og:article:published_time" content="2020-12-28T00:00:00+00:00">
+  <meta property="og:url" content="http://localhost:4000/2020-12-28-On-deck-combinations-and-probabilities-of-drawing/">
+  <link rel="canonical" href="http://localhost:4000/2020-12-28-On-deck-combinations-and-probabilities-of-drawing/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@daattali">
+  <meta name="twitter:creator" content="@daattali">
+
+  <meta property="twitter:title" content="On deck combinations and probabilities of drawing cards">
+  <meta property="twitter:description" content="Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">FGrattoni's website</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+                  <a class="dropdown-item" href="https://www.markdowntutorial.com/">Learn markdown</a>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://deanattali.com">Author's home</a>
+          </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>On deck combinations and probabilities of drawing cards</h1>
+          
+            
+              <h2 class="post-subheading">Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on December 28, 2020</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Table top games are a wonderland of maths and probability, much more than one may be willing to think about when trying to seek pleasure, maybe even disconnect the mind with a simple game. Card games, in this, are no exception.</p>
+
+<p>It’s practical use, its easy application in everyday life and its approachable and familiar theme made card games one of the most used examples appearing in any probability book.</p>
+
+<blockquote>
+  <p>What is the probability of drawing the king of hearts from a fairly shuffled deck of 52 cards?</p>
+</blockquote>
+
+<blockquote>
+  <p>What is the probability to draw any figure but the spades ones, from a fairly shuffled deck?</p>
+</blockquote>
+
+<p>These kind of <a href="https://www.math-only-math.com/playing-cards-probability.html">problems</a> build on a single assumption that is needed to solve them: the deck is well shuffled, meaning that any card has the exact same probability of being drawn than any other card left in the deck. There is no previous order imposed on the cards.</p>
+
+<h2 id="number-of-different-combination-of-decks">Number of different combination of decks</h2>
+
+<p>This is all the information we need to compute how many different, well shuffled, deck combination may exist. In fact, for any deck, the first card can be any of the 52 existing cards. Then the second card of the deck can be any of the remaining 51 cards. The third any of the remaining 50, and so on, up until the last card, which remains the unique card left. This leaves us with this formula to compute the number of different deck combinations:</p>
+
+\[\begin{aligned} 
+\text{\# of deck combinations} &amp;= 52 \cdot 51 \cdot 50 \cdot \dots \cdot 1 \\ &amp;= 52! \\ &amp;= 8,07 \cdot 10^{67} 
+\end{aligned}\]
+
+<p>This is a number extremely large. One almost impossible to conceive for us. To give an idea of the scale of this number we can take inspiration from a number that has seen many <a href="https://skeptics.stackexchange.com/questions/9059/more-stars-than-grains-of-sand">attempts of estimation</a>: the number of grains of sand present on earth. The most conservative number that has been estimated is $10^{24}$ grains of sand that are present of earth. You may find yourself in struggle when trying to visualize how many these are. It may even be difficult to visualize the number of grains of sand on a single beach, let alone the entire earth. But this number is incredibly far from the number of different deck combinations. Now, try to imagine for a moment that any single grain of sand is an entire world, identical to the Earth, with the exact same number of beaches, deserts and, ultimately, grains of sand. This would surely grant us a number of grains of sand that exceeds the number of combinations of single deck, composed by just 52 cards, right? Wrong, because even  if it may be difficult to imagine, this scenario would give use a number that is not even close to the different combinations, namely: $(10^{24})^2 = 10^{48}$ grains of sand. Not even close. In fact, the number of different combination of shuffled decks is so large that if you shuffle a normal deck of cards properly, now, you most likely are going to see in front of your eyes a combination of cards that no eye has ever seen before or will ever do.. Pretty incredible, right? Or is it? Not really, since this is something that would happen to anyone trying. It just sounds cool, a nice little fun fact.</p>
+
+<p>However, this was just a little, fun, digression from what the goal of the article is.</p>
+
+<h2 id="investigating-probabilities-of-drawing-cards">Investigating probabilities of drawing cards</h2>
+
+<p>If we want to compute the probability of drawing cards it will be useful to introduce a simple trick to compute probability, which comes from one of the existing definitions of probability. It builds upon the idea that we can compute the probability of an event by simply count the different outcomes that we define as successful, and compare it to the number of all possible outcomes:</p>
+
+\[\text{Probability of an event}=\frac{\text{number of favourable outcomes}}{\text{total number of outcomes}}\]
+
+<p>Now to apply this idea in our case, if we want to compute the probability of drawing the king of hearts we can count the number of successes (number of cards that can make the event happen, in this case only the king of hearts) and the number of possible outcomes (the total number of cards in the deck):</p>
+
+\[\text{Probability of drawing the king of hearts} = \frac{\text{\# of king of hearts}}{\text{total \# of cards}} = \frac{1}{52} = 0.019 = 1.9\%\]
+
+<p>Now we may ask ourselves what is the probability of drawing the king of hearts when drawing a hand of 5 cards?</p>
+
+<p><img src="https://i.imgur.com/YWK4uiY.jpg" alt="King_hearts_in_hand.jpg" /></p>
+
+<p>For each time we draw a card we may expect the same probability of drawing the king of hearts, i.e. 1.9%.</p>
+
+<h2 id="hypergeometricprobabilitymassfunction">Hypergeometric probability mass function</h2>
+
+\[P() = \frac{\binom{K}{k} \binom{N-K}{s-k}}{\binom{N}{s}}\]
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#probability">probability</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=On+deck+combinations+and+probabilities+of+drawing+cards&url=http%3A%2F%2Flocalhost%3A4000%2F2020-12-28-On-deck-combinations-and-probabilities-of-drawing%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020-12-28-On-deck-combinations-and-probabilities-of-drawing%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2020-12-28-On-deck-combinations-and-probabilities-of-drawing%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2020-12-12-HabitData/" data-toggle="tooltip" data-placement="top" title="Sample data analysis post">&larr; Previous Post</a>
+        </li>
+        
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Code for LaTeX math with mathjax -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:someone@example.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://www.facebook.com/deanattali" title="Facebook">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Facebook</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/daattali" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/daattali" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://www.youtube.com/c/daattali" title="YouTube">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">YouTube</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://patreon.com/DeanAttali" title="Patreon">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-patreon fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Patreon</span>
+    </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        FGrattoni
+        &nbsp;&bull;&nbsp;
+      
+      2020
+
+      
+        &nbsp;&bull;&nbsp;
+        <span class="author-site">
+          <a href="http://localhost:4000/">MyWebsite.com</a>
+        </span>
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>
