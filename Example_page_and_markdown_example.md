@@ -95,6 +95,13 @@ of related content to link to, maybe you decide to use green boxes for
 related links from each section of a notebook.
 </div>
 
+***
+
+<div class="alert alert-block alert-danger">
+<b>Just don't:</b> In general, avoid the red boxes. These should only be
+used for actions that might cause data loss or another major issue.
+</div>
+
 
 \begin{equation}
 E=mc^2
