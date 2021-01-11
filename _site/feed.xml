@@ -14,7 +14,7 @@
       <item>
         <title>On deck combinations and probabilities of drawing cards</title>
         <description>
-          Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand. - 
+          Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand. - 
           Table top games are a wonderland of maths and probability, much more than one may be willing to think about when trying to seek pleasure, maybe even disconnect the mind with a simple game. Card games, in this, are no exception. It’s practical use, its easy application in everyday life...
         </description>
         <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
@@ -23,36 +23,14 @@
       </item>
     
       <item>
-        <title>Sample data analysis post</title>
+        <title>Sample Exploratory Data Analysis in Python on personal habit data</title>
         <description>
-          Some analysis on personal data - 
-          import pandas as pd import os import matplotlib import matplotlib.pyplot as plt import datetime cwd = os.getcwd() df = pd.read_csv(os.path.join(cwd, 'HabitBulldata.csv')) Exploration Data Analysis of our dataframe We print all of the columns in the dataframe provided by the app: print(df.columns) Index(['HabitName', 'HabitDescription', 'HabitCategory', 'CalendarDate', 'Value', 'CommentText'], dtype='object') From this...
+          
+          In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the HabitBull app. With the app I daily import manually the data. The insights on the data provided by app are...
         </description>
-        <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2020-12-12-HabitData/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020-12-12-HabitData/</guid>
-      </item>
-    
-      <item>
-        <title>Sample blog post</title>
-        <description>
-          Each post also has a subtitle - 
-          This is a demo post to show you how to write blog posts with markdown. I strongly encourage you to take 5 minutes to learn how to write in markdown - it’ll teach you how to transform regular text into bold/italics/headings/tables/etc. Here is some bold text Here is a secondary...
-        </description>
-        <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2020-02-28-test-markdown/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020-02-28-test-markdown/</guid>
-      </item>
-    
-      <item>
-        <title>Flake it till you make it</title>
-        <description>
-          Excerpt from Soulshaping by Jeff Brown - 
-          Under what circumstances should we step off a path? When is it essential that we finish what we start? If I bought a bag of peanuts and had an allergic reaction, no one would fault me if I threw it out. If I ended a relationship with a woman who...
-        </description>
-        <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2020-02-26-flake-it-till-you-make-it/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020-02-26-flake-it-till-you-make-it/</guid>
+        <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2020-12-03-HabitDataEDA/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020-12-03-HabitDataEDA/</guid>
       </item>
     
   </channel>
