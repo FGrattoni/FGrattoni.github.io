@@ -6,6 +6,8 @@ cover-img:
 thumbnail-img: https://i.imgur.com/kyMzN08.jpeg
 share-img: https://i.imgur.com/kyMzN08.jpeg
 tags: [Exploratory Data Analysis, EDA, Python]
+gh-repo: FGrattoni/HabitData
+gh-badge: watch
 ---
 
 
