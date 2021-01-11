@@ -2,14 +2,14 @@
 layout: post
 title: Sample Exploratory Data Analysis in Python on personal habit data
 subtitle: 
-cover-img: https://i.imgur.com/kyMzN08.jpeg
-thumbnail-img:
+cover-img: 
+thumbnail-img: https://i.imgur.com/kyMzN08.jpeg
 share-img: https://i.imgur.com/kyMzN08.jpeg
 tags: [Exploratory Data Analysis, EDA, Python]
 ---
 
 
-In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the [HabitBull](http://www.habitbull.com) app. With the app I daily import manually the data. The insights on the data provided by app are useful at the original purpose of the app, i.e. habit formation. However, they may be considered insufficient for my purpose of keeping track of the evolution of my habit through different phases of my life. **And what better reason for some exploratory data analysis than this?!** 
+The objective of this article is to go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the [HabitBull](http://www.habitbull.com) app. With the app I daily import manually the data. The insights on the data provided by app are useful at the original purpose of the app, i.e. habit formation. However, they may be considered insufficient for my purpose of keeping track of the evolution of my habit through different phases of my life. **And what better reason for some exploratory data analysis than this?!** 
 
 
 ```python

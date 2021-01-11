@@ -2,8 +2,8 @@
 layout: post
 title: On deck combinations and probabilities of drawing cards
 subtitle: Or how can I compute the probability of drawing any number of cards from any number of specific sets of cards on the first hand.
-cover-img: https://i.imgur.com/MOkExEX.png
-thumbnail-img:
+cover-img: 
+thumbnail-img: https://i.imgur.com/MOkExEX.png
 share-img: 
 tags: [probability]
 ---
