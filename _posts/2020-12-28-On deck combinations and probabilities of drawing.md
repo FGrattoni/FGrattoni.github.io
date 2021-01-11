@@ -23,7 +23,7 @@ These kind of [problems](https://www.math-only-math.com/playing-cards-probabilit
 This is all the information we need to compute how many different, well shuffled, deck combination may exist. In fact, for any deck, the first card can be any of the 52 existing cards. Then the second card of the deck can be any of the remaining 51 cards. The third any of the remaining 50, and so on, up until the last card, which remains the unique card left. This leaves us with this formula to compute the number of different deck combinations:
 
 $$\begin{aligned} 
-\text{\# of deck combinations} &= 52 \cdot 51 \cdot 50 \cdot \dots \cdot 1 \\ &= 52! \\ &= 8,07 \cdot 10^{67} 
+\text{# of deck combinations} &= 52 \cdot 51 \cdot 50 \cdot \dots \cdot 1 \\ &= 52! \\ &= 8,07 \cdot 10^{67} 
 \end{aligned}$$
 
 This is a number extremely large. One almost impossible to conceive for us. To give an idea of the scale of this number we can take inspiration from a number that has seen many [attempts of estimation](https://skeptics.stackexchange.com/questions/9059/more-stars-than-grains-of-sand): the number of grains of sand present on earth. The most conservative number that has been estimated is $10^{24}$ grains of sand that are present of earth. You may find yourself in struggle when trying to visualize how many these are. It may even be difficult to visualize the number of grains of sand on a single beach, let alone the entire earth. But this number is incredibly far from the number of different deck combinations. Now, try to imagine for a moment that any single grain of sand is an entire world, identical to the Earth, with the exact same number of beaches, deserts and, ultimately, grains of sand. This would surely grant us a number of grains of sand that exceeds the number of combinations of single deck, composed by just 52 cards, right? Wrong, because even  if it may be difficult to imagine, this scenario would give use a number that is not even close to the different combinations, namely: $(10^{24})^2 = 10^{48}$ grains of sand. Not even close. In fact, the number of different combination of shuffled decks is so large that if you shuffle a normal deck of cards properly, now, you most likely are going to see in front of your eyes a combination of cards that no eye has ever seen before or will ever do.. Pretty incredible, right? Or is it? Not really, since this is something that would happen to anyone trying. It just sounds cool, a nice little fun fact. 
@@ -34,13 +34,13 @@ However, this was just a little, fun, digression from what the goal of the artic
 
 If we want to compute the probability of drawing cards it will be useful to introduce a simple trick to compute probability, which comes from one of the existing definitions of probability. It builds upon the idea that we can compute the probability of an event by simply count the different outcomes that we define as successful, and compare it to the number of all possible outcomes: 
 
-$$\text{Probability of an event}= \frac{\text{\# favourable outcomes}}{\text{\# total outcomes}}$$
+$$\text{Probability of an event}= \frac{\text{# favourable outcomes}}{\text{# total outcomes}}$$
 
 Now to apply this idea in our case, if we want to compute the probability of drawing the king of hearts we can count the number of successes (number of cards that can make the event happen, in this case only the king of hearts) and the number of possible outcomes (the total number of cards in the deck):
 
 $$
 \begin{aligned}
-  P(\text{King of hearts}) & = \frac{\text{\# of king of hearts}}{\text{total \# of cards}} \\ & = \frac{1}{52} = 0.019 = 1.9\%
+  P(\text{King of hearts}) & = \frac{\text{# of king of hearts}}{\text{total # of cards}} \\ & = \frac{1}{52} = 0.019 = 1.9\%
 \end{aligned}
 $$
 
