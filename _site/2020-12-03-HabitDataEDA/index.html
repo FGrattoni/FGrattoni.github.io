@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Sample Exploratory Data Analysis in Python on personal habit data</title>
+
+  
+  <meta name="author" content="FGrattoni">
+  
+
+  <meta name="description" content="In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the HabitBull app. With the app I daily import manually the data. The insights on the data provided by app are...">
+
+  
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="FGrattoni's website" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="FGrattoni's website">
+  <meta property="og:title" content="Sample Exploratory Data Analysis in Python on personal habit data">
+  <meta property="og:description" content="In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the HabitBull app. With the app I daily import manually the data. The insights on the data provided by app are...">
+
+  
+  <meta property="og:image" content="https://i.imgur.com/kyMzN08.jpeg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="FGrattoni">
+  <meta property="og:article:published_time" content="2020-12-03T00:00:00+00:00">
+  <meta property="og:url" content="http://localhost:4000/2020-12-03-HabitDataEDA/">
+  <link rel="canonical" href="http://localhost:4000/2020-12-03-HabitDataEDA/">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <meta name="twitter:site" content="@daattali">
+  <meta name="twitter:creator" content="@daattali">
+
+  <meta property="twitter:title" content="Sample Exploratory Data Analysis in Python on personal habit data">
+  <meta property="twitter:description" content="In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the HabitBull app. With the app I daily import manually the data. The insights on the data provided by app are...">
+
+  
+  <meta name="twitter:image" content="https://i.imgur.com/kyMzN08.jpeg">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">FGrattoni's website</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+                  <a class="dropdown-item" href="https://www.markdowntutorial.com/">Learn markdown</a>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://deanattali.com">Author's home</a>
+          </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+  <div id="header-big-imgs" data-num-img=1
+    
+    
+    
+      
+      data-img-src-1="https://i.imgur.com/kyMzN08.jpeg"
+    
+    
+    
+  ></div>
+
+
+<header class="header-section has-img">
+
+<div class="big-img intro-header">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Sample Exploratory Data Analysis in Python on personal habit data</h1>
+          
+
+          
+            <span class="post-meta">Posted on December 3, 2020</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class='img-desc'></span>
+</div>
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Sample Exploratory Data Analysis in Python on personal habit data</h1>
+          
+
+          
+            <span class="post-meta">Posted on December 3, 2020</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>In this article I aim at go through the process of analysis of a sample database, a database that I built while tracking a few of my habits with the <a href="http://www.habitbull.com">HabitBull</a> app. With the app I daily import manually the data. The insights on the data provided by app are useful at the original purpose of the app, i.e. habit formation. However, they may be considered insufficient for my purpose of keeping track of the evolution of my habit through different phases of my life. <strong>And what better reason for some exploratory data analysis than this?!</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s">'HabitBulldata.csv'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="exploration-data-analysis-of-our-dataframe">Exploration Data Analysis of our dataframe</h2>
+<p>We print all of the columns in the dataframe provided by the app:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Index(['HabitName', 'HabitDescription', 'HabitCategory', 'CalendarDate',
+       'Value', 'CommentText'],
+      dtype='object')
+</code></pre></div></div>
+
+<p>From this we can determine the columns that we are interested in:</p>
+<ul>
+  <li>✅ <strong>HabitName</strong>: name of the habit recorded. In the app we can track many different habits but the exported data lists all of the entries in a single long table. This is fundamental to differentiate the values in the various different habits;</li>
+  <li><strong>HabitDescription</strong>: description given to the habit. Not useful for its analysis, could contain, however, information on the meaning of the value recorded;</li>
+  <li><strong>HabitCategory</strong>: not relevant for our analysis. Different habits could, however, be given a different category so some kind of analysis could be made on this basis;</li>
+  <li>✅ <strong>CalendarDate</strong>: date of the entry. Useful for plotting the data;</li>
+  <li>✅ <strong>Value</strong>: entry of the habit. Key information of our database;</li>
+  <li><strong>CommentText</strong>: single entries could be given a comment. Not used in our case.</li>
+</ul>
+
+<p>In conclusion we are only interested in the columns tagged with the checkmark ✅. We can remove the useless information from our dataFrame:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s">'HabitName'</span><span class="p">,</span> <span class="s">'CalendarDate'</span><span class="p">,</span> <span class="s">'Value'</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Now we can start actually visualizing the content of our database:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>HabitName</th>
+      <th>CalendarDate</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>☕</td>
+      <td>2019-01-21</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>☕</td>
+      <td>2019-01-22</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>☕</td>
+      <td>2019-01-23</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>☕</td>
+      <td>2019-01-24</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>☕</td>
+      <td>2019-01-25</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>As can be seen all of the habits are sorted by their name and date. Exploring a bit more the dataframe we can spot (and visualize), the different habits tracked:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1400</span><span class="p">,</span> <span class="mi">2500</span><span class="p">],:])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     HabitName CalendarDate  Value
+0            ☕   2019-01-21      0
+800          📕   2019-04-28      0
+1400         📖   2019-01-16      0
+2500         😴   2020-02-19      1
+</code></pre></div></div>
+
+<p>Now we need to figure out the first days for each habit (knowing, of course, that the first date for the first habit lies in the first row of the dataframe). Then we store them in a list called <strong>startingEntry</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">startingEntry</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">startingEntry</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">nEntries</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"HabitName"</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nEntries</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">"HabitName"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s">"HabitName"</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Found first date: </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s">'HabitName'</span><span class="p">]</span><span class="si">}</span><span class="s"> -&gt; </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s">'CalendarDate'</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">startingEntry</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Found first date: 📕 -&gt; 2019-01-01
+Found first date: 📖 -&gt; 2019-01-01
+Found first date: 😴 -&gt; 2019-01-01
+</code></pre></div></div>
+
+<p>With this information we can determine and list all starting dates (together with some more information about the habits):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numberOfHabits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">startingEntry</span><span class="p">)</span>
+<span class="n">recordedEntries</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfHabits</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">startingEntry</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">recordedEntries</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># last habit in the dataframe
+</span>        <span class="n">recordedEntries</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"HabitName"</span><span class="p">])</span><span class="o">-</span> <span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The first recorded date of the habit </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s">'HabitName'</span><span class="p">]</span><span class="si">}</span><span class="s"> is </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s">'CalendarDate'</span><span class="p">]</span><span class="si">}</span><span class="s">. It has </span><span class="si">{</span><span class="n">recordedEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s"> entries."</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The first recorded date of the habit ☕ is 2019-01-21. It has 683 entries.
+The first recorded date of the habit 📕 is 2019-01-01. It has 702 entries.
+The first recorded date of the habit 📖 is 2019-01-01. It has 702 entries.
+The first recorded date of the habit 😴 is 2019-01-01. It has 702 entries.
+</code></pre></div></div>
+
+<p>Lastly, we want to divide the various habits into their own columns. To do so we will create a new dataframe with a single habit per each column. (In doing so, an assumption will make things a lot easier: we assume that after the starting date every day has an entry. This assumption is acceptable for the use and the characteristics of the dataset, since each day has an entry, let it be positive or negative).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># We create the new dataframe that we will use to make the analysis
+</span><span class="n">HabitsData</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">HabitNames</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfHabits</span><span class="p">):</span>
+    <span class="n">HabitNames</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s">"HabitName"</span><span class="p">])</span>
+
+<span class="n">datesColumns</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfHabits</span><span class="p">):</span>
+    <span class="n">habit</span> <span class="o">=</span> <span class="n">HabitNames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">habitList</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># making up for the missing entries at the beginning of the list
+</span>    <span class="k">if</span> <span class="n">recordedEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">recordedEntries</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">recordedEntries</span><span class="p">)</span> <span class="o">-</span> <span class="n">recordedEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+            <span class="n">habitList</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    
+    <span class="c1"># Creation of the list for the single habit to append then in the dictionary
+</span>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfHabits</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">habitList</span> <span class="o">=</span> <span class="n">habitList</span> <span class="o">+</span> <span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">"Value"</span><span class="p">].</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># last habit in the dataframe
+</span>        <span class="n">habitList</span> <span class="o">=</span> <span class="n">habitList</span> <span class="o">+</span> <span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"HabitName"</span><span class="p">]),</span> <span class="s">"Value"</span><span class="p">].</span><span class="n">tolist</span><span class="p">())</span>
+    
+    <span class="c1"># creation of the column with the dates (to use in the plot)
+</span>    <span class="k">if</span> <span class="n">recordedEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">recordedEntries</span><span class="p">)</span> <span class="ow">and</span> <span class="n">datesColumns</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">CalendarList</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">startingEntry</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"HabitName"</span><span class="p">]),</span> <span class="s">"CalendarDate"</span><span class="p">].</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">HabitsData</span><span class="p">[</span><span class="s">"CalendarDate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">CalendarList</span>
+    
+    <span class="c1">#habitList = df
+</span>    <span class="n">HabitsData</span><span class="p">[</span><span class="n">habit</span><span class="p">]</span> <span class="o">=</span> <span class="n">habitList</span>
+<span class="n">HabitsData</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">)</span>
+<span class="n">HabitsData</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>☕</th>
+      <th>CalendarDate</th>
+      <th>📕</th>
+      <th>📖</th>
+      <th>😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>2019-01-01</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2019-01-02</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>2019-01-03</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>2019-01-04</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>2019-01-05</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Now we need to transform the CalendarDate column in a the <code class="language-plaintext highlighter-rouge">datetime</code> format (from the <code class="language-plaintext highlighter-rouge">datetime</code> module):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">recordedEntries</span><span class="p">)):</span>
+    <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span>
+                                          <span class="nb">int</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]),</span>
+                                          <span class="nb">int</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">][</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+<span class="n">HabitsData</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>☕</th>
+      <th>CalendarDate</th>
+      <th>📕</th>
+      <th>📖</th>
+      <th>😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>2019-01-01</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2019-01-02</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>2019-01-03</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>2019-01-04</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>2019-01-05</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The appearance of the CalendarDate column is not changed but in practice it is a different object. We can demonstrate that by finding out is type by means of the <code class="language-plaintext highlighter-rouge">type()</code> function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>datetime.date
+</code></pre></div></div>
+
+<p>Now we change the order of the columns in the dataframe so that they make more sense to us. We do so by creating a new, temporary, dataframe <code class="language-plaintext highlighter-rouge">temp</code> and assigning first the values for the first column (CalendarDate) and then, in order, the various habits values. Then we copy this dataframe and assign it to the variable that we already used: <code class="language-plaintext highlighter-rouge">HabitData</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">temp</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">HabitNames</span><span class="p">:</span>
+    <span class="n">temp</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">,</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="n">i</span><span class="p">]])</span>
+    
+<span class="n">HabitsData</span> <span class="o">=</span> <span class="n">temp</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">HabitsData</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CalendarDate</th>
+      <th>☕</th>
+      <th>📕</th>
+      <th>📖</th>
+      <th>😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-01-01</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-01-02</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-01-03</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-01-04</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-01-05</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="data-visualization-for-exploratory-analysis">Data visualization for Exploratory Analysis</h2>
+
+<p>We start with the most simple rapresentation of our data that we can.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Habit'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/f62eVmi.png" alt="1st plot" /></p>
+
+<p>We started our analysis with the most simple and straightforward plot possible, plotting the entries of a single habit in a unique plot. We did this as a starting point to find out all the possible ways in which we can improve it, and then tackling one at a time. We map our TODO list:</p>
+
+<ul>
+  <li>the dates in the x-axis are not clear [we can make them vertical or oblique];</li>
+  <li>the data is very difficult to interpret. We need some more meaningful information, like the <strong>rolling average</strong>;</li>
+</ul>
+
+<h3 id="rolling-average">Rolling average</h3>
+<p>By creating a rolling average we aim to achieve a smoother plot, representing the sum of the habit’s values in the previous month. Thus, each observation represents a moving average for the month (30 days before).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># creation of the rolling average
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">HabitNames</span><span class="p">:</span>
+    <span class="n">colName</span> <span class="o">=</span> <span class="s">"Rolling"</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="n">HabitsData</span><span class="p">[</span><span class="n">colName</span><span class="p">]</span> <span class="o">=</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">i</span><span class="p">].</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">30</span><span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">HabitsData</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CalendarDate</th>
+      <th>☕</th>
+      <th>📕</th>
+      <th>📖</th>
+      <th>😴</th>
+      <th>Rolling☕</th>
+      <th>Rolling📕</th>
+      <th>Rolling📖</th>
+      <th>Rolling😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-01-01</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-01-02</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-01-03</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-01-04</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-01-05</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The resulting database view may make you think about an error, but in fact the rolling average is not defined for the first <code class="language-plaintext highlighter-rouge">n</code> days defined in the <code class="language-plaintext highlighter-rouge">rolling(window = n)</code> function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">],</span> <span class="s">'#ff7f0e'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Habit'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/x2bmqw0.png" alt="2nd plot" /></p>
+
+<p>Now the data is much more easy to read. We can see the months in which the habit has been performed more on average, and the months in which, on average, is has been performed less. 
+Already this plot conveys much more meaning, compared to the previous one. To better compare them we can plot them on the same graph:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Habit'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/mEXZFGo.png" alt="Both plots combined" /></p>
+
+<p>Now we repeat the process of creation of the plots for each different habit:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s">'hspace'</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">HabitNames</span><span class="p">)):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">].</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Habit'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Habit #"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">].</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">HabitsData</span><span class="p">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"CalendarDate"</span><span class="p">],</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="n">numberOfHabits</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">].</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span> 
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/KhOfHvF.png" alt="All Habits' plots" /></p>
+
+<p>Now that we have explored, prepared, and modified our database, we may want to gain some more insights on the data.</p>
+
+<p>We may want to explore the question:</p>
+<blockquote>
+  <p><em>Is there any correlation between different habits?</em></p>
+</blockquote>
+
+<p>In other words, can the data prove that some habit has a positive, or negative, effect on some other habit? Note that we need to be careful from this point on, not to mistake correlation with causation. In order to be able to prove that, some other considerations may be needed.</p>
+
+<h3 id="correlation-among-different-habits">Correlation among different habits</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">corrMatrix</span> <span class="o">=</span> <span class="n">HabitsData</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">numberOfHabits</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">numberOfHabits</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">'pearson'</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">corrMatrix</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Rolling☕</th>
+      <th>Rolling📕</th>
+      <th>Rolling📖</th>
+      <th>Rolling😴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Rolling☕</th>
+      <td>1.000</td>
+      <td>-0.543</td>
+      <td>0.797</td>
+      <td>0.074</td>
+    </tr>
+    <tr>
+      <th>Rolling📕</th>
+      <td>-0.543</td>
+      <td>1.000</td>
+      <td>-0.415</td>
+      <td>0.028</td>
+    </tr>
+    <tr>
+      <th>Rolling📖</th>
+      <td>0.797</td>
+      <td>-0.415</td>
+      <td>1.000</td>
+      <td>-0.067</td>
+    </tr>
+    <tr>
+      <th>Rolling😴</th>
+      <td>0.074</td>
+      <td>0.028</td>
+      <td>-0.067</td>
+      <td>1.000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corrMatrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"RdYlGn"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c:\python391\lib\site-packages\matplotlib\backends\backend_agg.py:238: RuntimeWarning: Glyph 128213 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+c:\python391\lib\site-packages\matplotlib\backends\backend_agg.py:238: RuntimeWarning: Glyph 128214 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+c:\python391\lib\site-packages\matplotlib\backends\backend_agg.py:201: RuntimeWarning: Glyph 128213 missing from current font.
+  font.set_text(s, 0, flags=flags)
+c:\python391\lib\site-packages\matplotlib\backends\backend_agg.py:201: RuntimeWarning: Glyph 128214 missing from current font.
+  font.set_text(s, 0, flags=flags)
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/RUx2KDQ.png" alt="correlation plot" /></p>
+
+<p>This representation is fine, it conveys the information we wanted. However, it could be made better by only showcasing the information that we need, i.e. only the lower, meaningful, triangle. We make this by making use of a matrix, then transforming into boolean values and using it as a mask, <a href="https://medium.com/@szabo.bibor/how-to-create-a-seaborn-correlation-heatmap-in-python-834c0686b88e">see reference</a> for more details.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">np</span><span class="p">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">corrMatrix</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[1., 1., 1., 1.],
+       [0., 1., 1., 1.],
+       [0., 0., 1., 1.],
+       [0., 0., 0., 1.]])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">corrMatrix</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="nb">bool</span><span class="p">))</span>
+<span class="n">heatmap</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corrMatrix</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlGn'</span><span class="p">)</span>
+<span class="n">heatmap</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Habit Correlation Heatmap'</span><span class="p">);</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s">"Habit </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfHabits</span><span class="p">)]</span>
+<span class="n">heatmap</span><span class="p">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">heatmap</span><span class="p">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://i.imgur.com/G6eVXu3.png" alt="Correlation plot improved" /></p>
+
+<p>While working on the plot we also changed the labels of the ticks knowing the following nomenclature:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">habit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">corrMatrix</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Habit </span><span class="si">{</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">habit</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Habit 1: Rolling☕
+Habit 2: Rolling📕
+Habit 3: Rolling📖
+Habit 4: Rolling😴
+</code></pre></div></div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#Exploratory Data Analysis">Exploratory Data Analysis</a>
+          
+            <a href="/tags#EDA">EDA</a>
+          
+            <a href="/tags#Python">Python</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Sample+Exploratory+Data+Analysis+in+Python+on+personal+habit+data&url=http%3A%2F%2Flocalhost%3A4000%2F2020-12-03-HabitDataEDA%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020-12-03-HabitDataEDA%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2020-12-03-HabitDataEDA%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2020-12-28-On-deck-combinations-and-probabilities-of-drawing/" data-toggle="tooltip" data-placement="top" title="On deck combinations and probabilities of drawing cards">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Code for LaTeX math with mathjax -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:someone@example.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://www.facebook.com/deanattali" title="Facebook">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Facebook</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/daattali" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/daattali" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://www.youtube.com/c/daattali" title="YouTube">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">YouTube</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://patreon.com/DeanAttali" title="Patreon">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-patreon fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Patreon</span>
+    </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        FGrattoni
+        &nbsp;&bull;&nbsp;
+      
+      2021
+
+      
+        &nbsp;&bull;&nbsp;
+        <span class="author-site">
+          <a href="http://localhost:4000/">MyWebsite.com</a>
+        </span>
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>
